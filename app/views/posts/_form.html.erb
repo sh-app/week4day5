@@ -1,0 +1,31 @@
+<% route = (post.persisted? ? post_url(post) : posts_url) %>
+<% action = (post.persisted? ? "patch" : "post") %>
+<% value = (post.persisted? ?  "Edit post" : "Create post" ) %>
+
+<form action="<%= route %>" method="post">
+  <input type="hidden" name="_method" value=<%= action%>>
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <label>Title:
+    <input type="string" name="post[title]" value="<%= post.title %>">
+  </label>
+  <br>
+  <label>URL: (optional)
+    <input type="string" name="post[url]" value="<%= post.url %>">
+  </label>
+  <br>
+  <label>Content:
+    <br>
+    <textarea name="post[content]" rows="8" cols="40"><%= post.content %></textarea>
+  </label>
+  <br>
+
+  <input type="hidden" name="sub_ids[]" value="">
+  <% Sub.all.each do |sub| %>
+    <label> <%= sub.title %>
+      <input type="checkbox" name="sub_ids[]" value="<%= sub.id %>"
+      <%= post.sub_ids.include?(sub.id) ? "checked" : "" %>>
+    </label>
+    <br>
+  <% end %>
+  <input type="submit" value=<%= value %>>
+</form>

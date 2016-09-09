@@ -1,0 +1,18 @@
+<% route = (sub.persisted? ? sub_url(sub) : subs_url) %>
+<% action = (sub.persisted? ? "patch" : "post") %>
+<% value = (sub.persisted? ?  "Edit sub" : "Create sub" ) %>
+
+<form action="<%= route %>" method="post">
+  <input type="hidden" name="_method" value=<%= action%>>
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <label>Title:
+    <input type="string" name="sub[title]" value="<%= sub.title %>">
+  </label>
+  <br>
+  <label>Description:
+    <br>
+    <textarea name="sub[description]" rows="8" cols="40"><%= sub.description %></textarea>
+  </label>
+  <br>
+  <input type="submit" value=<%= value %>>
+</form>
