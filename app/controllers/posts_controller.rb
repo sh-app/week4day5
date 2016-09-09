@@ -1,8 +1,19 @@
 class PostsController < ApplicationController
 
+  def index
+    redirect_to subs_url
+  end
+
   def new
     @post = Post.new()
     render :new
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    flash.notice = "post deleted"
+    @post.destroy
+    redirect_to subs_url
   end
 
   def create
@@ -11,10 +22,6 @@ class PostsController < ApplicationController
     @post.author_id = current_user.id
 
     if @post.save
-      params[:sub_ids][1..-1].each do |id|
-        PostSub.create(post_id: @post.id, sub_id: id.to_i)
-      end
-
       flash.notice = "You have created #{@post.title}."
       redirect_to post_url(@post)
     else
@@ -48,7 +55,7 @@ class PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:title, :content, :url)
+    params.require(:post).permit(:title, :content, :url, sub_ids: [])
   end
 
 

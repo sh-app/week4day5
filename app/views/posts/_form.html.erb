@@ -19,10 +19,10 @@
   </label>
   <br>
 
-  <input type="hidden" name="sub_ids[]" value="">
+  <input type="hidden" name="post[sub_ids][]" value="">
   <% Sub.all.each do |sub| %>
     <label> <%= sub.title %>
-      <input type="checkbox" name="sub_ids[]" value="<%= sub.id %>"
+      <input type="checkbox" name="post[sub_ids][]" value="<%= sub.id %>"
       <%= post.sub_ids.include?(sub.id) ? "checked" : "" %>>
     </label>
     <br>

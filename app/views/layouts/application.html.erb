@@ -13,8 +13,11 @@
   <form action="<%= session_url %>" method="post">
     <input type="hidden" name="_method" value="delete">
     <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-
-    <input type="submit" value="Log out">
+    <p>Logged in as <%= current_user.username %>
+    <input type="submit" value="Log out"></p>
+    <a href="<%=subs_url%>">View all subs</a>
+      &nbsp;&nbsp;
+    <a href="<%=new_sub_url%>">Create a sub</a>
   </form>
 
   <% else %>

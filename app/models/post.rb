@@ -21,11 +21,14 @@ class Post < ActiveRecord::Base
     foreign_key: :author_id
   )
 
-  has_many :post_subs,
-    class_name: :PostSub,
-    foreign_key: :post_id
+  has_many :post_subs, inverse_of: :post, dependent: :destroy
 
   has_many :subs,
     through: :post_subs,
     source: :sub
+
+  has_many :comments,
+  class_name: "Comment",
+  foreign_key: :post_id
+
 end

@@ -1,0 +1,15 @@
+<% route = (comment.persisted? ? comment_url(comment) : comments_url) %>
+<% action = (comment.persisted? ? "patch" : "post") %>
+<% value = (comment.persisted? ?  "Edit comment" : "Create comment" ) %>
+
+<form action="<%= route %>" method="comment">
+  <input type="hidden" name="_method" value=<%= action%>>
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <br>
+  <label>Content:
+    <br>
+    <textarea name="comment[content]" rows="8" cols="40"><%= comment.content %></textarea>
+  </label>
+  <br>
+  <input type="submit" value=<%= value %>>
+</form>

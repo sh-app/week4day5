@@ -8,15 +8,17 @@
 #
 
 class PostSub < ActiveRecord::Base
-  validates :post_id, :sub_id, presence: true
-  validates :post_id, uniqueness: {scope: :sub_id}
+  validates :post, :sub, presence: true
+  # validates :post_id, uniqueness: {scope: :sub_id}
 
   belongs_to :post,
     class_name: :Post,
-    foreign_key: :post_id
+    foreign_key: :post_id,
+    inverse_of: :post_subs
 
   belongs_to :sub,
     class_name: :Sub,
-    foreign_key: :sub_id
+    foreign_key: :sub_id,
+    inverse_of: :post_subs
 
 end

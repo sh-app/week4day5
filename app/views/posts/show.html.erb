@@ -1,6 +1,26 @@
 <h1> <%= @post.title %> </h1>
 
 <label>By: <%= @post.author.username %>  </label>
+<% if current_user == @post.author %>
+<p>
+  <a href='<%= edit_post_url(@post) %>'>Edit post</a>&nbsp;
+  <form action="<%= post_url %>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="submit" value="Delete post">
+  </form>
+</p>
 
+<% end %>
 <br>
 <%= @post.content %>
+<br>
+<ul>
+<% @post.comments.each do |comment| %>
+
+<li>
+  <a href="<%= comment_url(comment) %>"><%=  comment.author_id%></a>
+</li>
+
+<% end %>
+<ul>
